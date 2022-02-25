@@ -1,7 +1,7 @@
 # Crawling-e-Scraping-com-Python
 Olá!
 
-Esse é um projeto de estudo de Crawling e Scraping com Python utilizando as bibliotecas **BeautifulSoup** e **requests**
+Esse é um projeto de estudo de Crawling e Scraping com Python utilizando as bibliotecas **BeautifulSoup**, **requests** e **json**
 
 **crawling.py** faz a requisição ao site e devolve o conteúdo (HTML) da página. 
 
