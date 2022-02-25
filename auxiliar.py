@@ -54,6 +54,7 @@ def gera_CSV_github(projetos):
                 info.insert(0, '')
             linha = f'{i+1};{nomes[2]};{info[0]};{info[1]};{info[2]};{info[5]}'
             arquivo.write(linha + '\n')
+            
     return 'CSV criado com sucesso!'
 
 
