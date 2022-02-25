@@ -10,5 +10,3 @@ Esse é um projeto de estudo de Crawling e Scraping com Python utilizando as bib
 **scraping_github.py** solicita a leitura do [Trending](https://github.com/trending) do GitHub. Nesse caso, também foi limitado para os 10 primeiros, sendo possível alterar na variável **limite_de_itens**  
 
 **auxiliar.py** possui funções para gerar **JSON** ou **CSV**, tanto para o IMDB quanto para o GitHub
-
-**requirements.txt** lista as bibliotecas instaladas (e suas respectivas dependências).
