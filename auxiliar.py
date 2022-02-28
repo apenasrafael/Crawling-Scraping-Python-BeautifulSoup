@@ -2,24 +2,26 @@ import json
 from datetime import datetime
 
 
-def gera_csv_imdb(info_filmes):
+def gerar_csv_imdb(info_filmes):
     filmes_td_titleColumn = info_filmes[0]
     filmes_td_ratingColumn_imdbRating = info_filmes[1]
-    with open(file='imdb.csv', mode='w', encoding='utf8') as arquivo:
-        arquivo.write('ranking;titulo;ano;nota\n')
-        for i in range(len(filmes_td_titleColumn)):
-            filme = filmes_td_titleColumn[i].getText().strip().split()
-            nota = filmes_td_ratingColumn_imdbRating[i].getText().strip().split()[0]
-            posicao = filme[0].replace('.', '')
-            titulo = ' '.join(filme[1:-1])
-            ano = filme[-1].replace('(', '').replace(')', '')
-            linha = f'{posicao};{titulo};{ano};{nota}'
-            arquivo.write(linha + '\n')
+    cabecalho = 'ranking;titulo;ano;nota\n'
+    itens = list()
 
-    return 'CSV gerado com sucesso!'
+    for i in range(len(filmes_td_titleColumn)):
+        filme = filmes_td_titleColumn[i].getText().strip().split()
+        nota = filmes_td_ratingColumn_imdbRating[i].getText().strip().split()[0]
+        posicao = filme[0].replace('.', '')
+        titulo = ' '.join(filme[1:-1])
+        ano = filme[-1].replace('(', '').replace(')', '')
+        registro = f'{posicao};{titulo};{ano};{nota}'
+        itens.append(registro)
+
+    mensagem = gerar_csv('imdb.csv', cabecalho, itens)
+    return mensagem
 
 
-def gera_json_imdb(info_filmes):
+def gerar_json_imdb(info_filmes):
     filmes_td_titleColumn = info_filmes[0]
     filmes_td_ratingColumn_imdbRating = info_filmes[1]
     dicionario = dict()
@@ -42,23 +44,25 @@ def gera_json_imdb(info_filmes):
     return json.dumps(dicionario, indent=2, ensure_ascii=False)
 
 
-def gera_CSV_github(projetos):
+def gerar_csv_github(projetos):
     project_names = projetos[0]
     project_info = projetos[1]
-    with open(file='github.csv', mode='w', encoding='utf8') as arquivo:
-        arquivo.write('ranking;project;language;stars;stars_today;forks\n')
-        for i in range(len(project_names)):
-            nomes = project_names[i].getText().strip().split()
-            info = project_info[i].getText().strip().split()
-            if len(info) == 7:
-                info.insert(0, '')
-            linha = f'{i+1};{nomes[2]};{info[0]};{info[1]};{info[2]};{info[5]}'
-            arquivo.write(linha + '\n')
-            
-    return 'CSV criado com sucesso!'
+    cabecalho = 'ranking;project;language;stars;stars_today;forks\n'
+    itens = list()
+
+    for i in range(len(project_names)):
+        nomes = project_names[i].getText().strip().split()
+        info = project_info[i].getText().strip().split()
+        if len(info) == 7:
+            info.insert(0, '')
+        registro = f'{i + 1};{nomes[2]};{info[0]};{info[1]};{info[2]};{info[5]}'
+        itens.append(registro)
+
+    mensagem = gerar_csv('github.csv', cabecalho, itens)
+    return mensagem
 
 
-def gera_JSON_github(projetos):
+def gerar_json_github(projetos):
     project_names = projetos[0]
     project_info = projetos[1]
     dicionario = dict()
@@ -77,3 +81,12 @@ def gera_JSON_github(projetos):
         dicionario['data_de_consulta'] = datetime.now().strftime("%d/%m/%Y - %H:%M:%S")
 
     return json.dumps(dicionario, indent=2, ensure_ascii=False)
+
+
+def gerar_csv(nome_arquivo, cabecalho, itens):
+    with open(file=nome_arquivo, mode='w', encoding='utf8') as arquivo:
+        arquivo.write(cabecalho)
+        for item in itens:
+            arquivo.write(item + '\n')
+
+    return f'Arquivo {nome_arquivo} criado com sucesso!'

@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup
 from crawling import crawl_site
-from auxiliar import gera_CSV_github, gera_JSON_github
+from auxiliar import gerar_csv_github, gerar_json_github
 
 
 URL = 'https://github.com/trending'
@@ -12,7 +12,7 @@ project_names = pagina.find_all('h1', {'class': 'h3 lh-condensed'}, limit=limite
 project_info = pagina.find_all('div', {'class': 'f6 color-fg-muted mt-2'}, limit=limite_de_itens)
 projetos = [project_names, project_info]
 
-mensagem = gera_CSV_github(projetos)
+mensagem = gerar_csv_github(projetos)
 print(mensagem)
-mensagem = gera_JSON_github(projetos)
+mensagem = gerar_json_github(projetos)
 print(mensagem)
